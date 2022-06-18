@@ -1,0 +1,5 @@
+# Do not include azure-functions-worker as it may conflict with the Azure Functions platform
+numpy==1.22.4
+pandas==1.4.2
+scikit-learn==1.1.1
+azure-functions==1.11.2
