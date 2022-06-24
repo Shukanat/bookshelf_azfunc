@@ -21,7 +21,8 @@ def load_data_and_model():
 def collaborative_filtering(user_id, top_n, df, gb, model):
     user_story = df[df.user_id == user_id] #filter for user clicks story
     if user_story.empty:
-        return f'No reads history for {user_id}'
+        top5 = df.groupby(['article_id']).click_timestamp.count().reset_index().sort_values(by='click_timestamp', ascending=False).article_id.iloc[:5].values
+        return top5.tolist()
     article_id = user_story[user_story.click_timestamp == max(user_story.click_timestamp)].article_id.values[0] #find last clicked article
     a_id = gb[gb.article_id == article_id].a_id.values[0]
     related = model.similar_items(a_id, N=top_n+1)
